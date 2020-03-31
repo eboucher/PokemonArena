@@ -1,15 +1,15 @@
 <app-pokemon [pokemon]="pokemon1.pokemon"></app-pokemon>
 <app-pokemon [pokemon]="pokemon2.pokemon"></app-pokemon>
-<button (click)="fight()">
+<button id="fight" (click)="fight()">
     Start fight
 </button>
-<button [disabled]="!onPause" (click)="pause()">
+<button id="pause" [disabled]="!onPause" (click)="pause()">
   Pause
 </button>
-<button [disabled]="!onStart" (click)="play()">
+<button id="play" [disabled]="!onStart" (click)="play()">
   Play
 </button>
-<button (click)="reset()">
+<button id="reset" (click)="reset()">
   Reset fight
 </button>
 <app-message></app-message>

@@ -11,13 +11,13 @@ import { MessageComponent } from '../message/message.component';
 export class BattleComponent implements OnInit {
   @Input() pokemon1: PokemonComponent;
   @Input() pokemon2: PokemonComponent;
-  // @Input() charge: AttackComponent;
-  // @Input() trempette: AttackComponent;
   @Input() action = ' ';
   @Input() message: MessageComponent;
   interval: any;
   onStart: boolean;
   onPause: boolean;
+  winner: string;
+
 
   constructor() { }
 
@@ -89,6 +89,7 @@ export class BattleComponent implements OnInit {
           clearInterval(this.interval);
           console.log(order[0].name + ' gagne !');
           this.action += order[0].name + ' gagne ! \n\r';
+          this.winner = order[0].name;
           return;
         }
         this.action += order[1].attackTarget(order[1].attacks[0], order[0]) + `\n\r`;
@@ -100,6 +101,7 @@ export class BattleComponent implements OnInit {
           clearInterval(this.interval);
           console.log(order[1].name + ' gagne !');
           this.action += order[1].name + ' gagne ! \n\r';
+          this.winner = order[1].name;
           return;
         }
       }, 1000, pokemon1, pokemon2);
