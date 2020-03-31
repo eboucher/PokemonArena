@@ -50,6 +50,9 @@ export class BattleComponent implements OnInit {
     this.simulateFight(this.pokemon1.pokemon, this.pokemon2.pokemon);
     this.onStart = false;
   }
+  reset(): void{
+    this.ngOnInit();
+  }
 
   getRandomInt(max: number): number {
     return Math.floor(Math.random() * Math.floor(max));
