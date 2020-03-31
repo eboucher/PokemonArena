@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./like-button.component.css']
 })
 export class LikeButtonComponent implements OnInit {
-  @Input() nbLikes: number = 0;
+  @Input() nbLikes = 0;
 
   constructor() { }
 

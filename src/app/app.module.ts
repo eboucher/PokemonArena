@@ -6,6 +6,7 @@ import { LikeButtonComponent } from './like-button/like-button.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { BattleComponent } from './battle/battle.component';
 import { AttackComponent } from './attack/attack.component';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { AttackComponent } from './attack/attack.component';
     LikeButtonComponent,
     PokemonComponent,
     BattleComponent,
-    AttackComponent
+    AttackComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule
