@@ -16,24 +16,24 @@ export class BattleComponent implements OnInit {
   // @Input() trempette: AttackComponent;
   @Input() action = ' ';
   interval: any;
-  
+
   constructor() { }
 
   ngOnInit(): void {
     const charge: Attack = new Attack('Charge', 50, 100, 'Normal', 'Physic');
     const trempette: Attack = new Attack('trempette', 0, 100, 'Normal', 'Physic');
-    let attacks: Array<Attack> = [charge, trempette];
+    const attacks: Array<Attack> = [charge, trempette];
     this.pokemon1 = new PokemonComponent();
     this.pokemon2 = new PokemonComponent();
     // this.charge = new AttackComponent();
     // this.trempette = new AttackComponent();
-    this.pokemon1.pokemon = new Pokemon("Pikachu", 50, 142, 117, 90, 156, attacks);
+    this.pokemon1.pokemon = new Pokemon('Pikachu', 50, 142, 117, 90, 156, attacks);
     this.pokemon1.image = './assets/img/25.png';
-    this.pokemon2.pokemon = new Pokemon("Magicarpe", 50, 142, 117, 90, 156, attacks);
+    this.pokemon2.pokemon = new Pokemon('Magicarpe', 50, 142, 117, 90, 156, attacks);
     this.pokemon2.image = './assets/img/129.png';
   }
-  
-  fight() : void{
+
+  fight(): void{
     this.simulateFight(this.pokemon1.pokemon, this.pokemon2.pokemon);
   }
 
@@ -75,7 +75,7 @@ export class BattleComponent implements OnInit {
         }
         this.action += order[1].attackTarget(order[1].attacks[0], order[0]) + `\n\r`;
         this.action += order[0].takeDamages(order[1].attacks[0], order[1]) + `\n\r`;
-        
+
         if (order[0].health <= 0) {
           resolve(order[1]);
           clearInterval(this.interval);

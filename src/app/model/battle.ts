@@ -1,7 +1,7 @@
-import Pokemon from "./pokemon";
+import Pokemon from './pokemon';
 
 class Battle {
-    //static interval: NodeJS.Timeout;
+    // static interval: NodeJS.Timeout;
     static interval;
 
     static getRandomInt(max: number): number {
@@ -11,10 +11,10 @@ class Battle {
     static orderPokemonToAttack(pokemon1: Pokemon, pokemon2: Pokemon): Pokemon[] {
         if (pokemon1.speed > pokemon2.speed) {
             return [pokemon1, pokemon2];
-        } 
+        }
         else if (pokemon1.speed < pokemon2.speed) {
             return [pokemon2, pokemon1];
-        } 
+        }
         // Si jamais ils ont la même vitesse : random entre les deux
         else {
             const random = Battle.getRandomInt(2);
