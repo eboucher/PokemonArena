@@ -27,9 +27,9 @@ export class BattleComponent implements OnInit {
     this.pokemon2 = new PokemonComponent();
     // this.charge = new AttackComponent();
     // this.trempette = new AttackComponent();
-    this.pokemon1.pokemon = new Pokemon('Pikachu', 50, 142, 142, 117, 90, 156, attacks);
+    this.pokemon1.pokemon = new Pokemon('Pikachu', 50, 142, 117, 90, 156, attacks);
     this.pokemon1.image =  '.https://www.pokepedia.fr/images/archive/0/06/20081102125949%21Magicarpe-RFVF.png';
-    this.pokemon2.pokemon = new Pokemon('Magicarpe', 50, 142, 142, 117, 90, 156, attacks);
+    this.pokemon2.pokemon = new Pokemon('Magicarpe', 50, 142, 117, 90, 156, attacks);
     this.pokemon2.image = '../../assets/img/129.png';
   }
 
@@ -65,8 +65,9 @@ export class BattleComponent implements OnInit {
         this.action += `${order[0].name} commence \n\r`;
         this.action += order[0].attackTarget(order[0].attacks[0], order[1]) + `\n\r`;
         this.action += order[1].takeDamages(order[0].attacks[0], order[0]) + `\n\r` ;
-        if (order[1].health <= 0) {
-          order[1].health = 0;
+
+        if (order[1].currentHealth <= 0) {
+          order[1].currentHealth = 0;
           resolve(order[0]);
           clearInterval(this.interval);
           console.log(order[0].name + ' gagne !');
@@ -76,8 +77,8 @@ export class BattleComponent implements OnInit {
         this.action += order[1].attackTarget(order[1].attacks[0], order[0]) + `\n\r`;
         this.action += order[0].takeDamages(order[1].attacks[0], order[1]) + `\n\r`;
 
-        if (order[0].health <= 0) {
-          order[0].health = 0;
+        if (order[0].currentHealth <= 0) {
+          order[0].currentHealth = 0;
           resolve(order[1]);
           clearInterval(this.interval);
           console.log(order[1].name + ' gagne !');
