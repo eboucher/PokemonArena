@@ -13,4 +13,8 @@ export class LikeButtonComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  handleLike() {
+    this.nbLikes++;
+  }
+
 }
