@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import Pokemon from '../model/pokemon';
-import Attack from '../model/attack';
 
 @Component({
   selector: 'app-pokemon',
