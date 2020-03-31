@@ -7,6 +7,7 @@ import Attack from '../model/attack';
 describe('PokemonComponent', () => {
   let component: PokemonComponent;
   let fixture: ComponentFixture<PokemonComponent>;
+  let pikachu: Pokemon;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,6 +20,12 @@ describe('PokemonComponent', () => {
     fixture = TestBed.createComponent(PokemonComponent);
     component = fixture.componentInstance;
 
+    let pikachuAttacks = Array<Attack>();
+    const charge: Attack = new Attack("Charge", 50, 100, "Normal", "Physic");
+    pikachuAttacks.push(charge);
+    pikachu = new Pokemon("Pikachu", 50, 142, 117, 90, 156, pikachuAttacks);
+    component.pokemon = pikachu;
+
     fixture.detectChanges();
   });
 
@@ -26,13 +33,7 @@ describe('PokemonComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should create pokemon element', () => {
-  //   let pikachuAttacks = Array<Attack>();
-  //   const charge: Attack = new Attack("Charge", 50, 100, "Normal", "Physic");
-  //   pikachuAttacks.push(charge);
-  //   let pikachu: Pokemon = new Pokemon("Pikachu", 50, 142, 117, 90, 156, pikachuAttacks);
-  //   // component.pokemon = pikachu;
-  //   // component.image = "";
-  //   expect(component.pokemon.name).toBe(pikachu.name);
-  // });
+  it('should create pokemon element', () => {
+    expect(component.pokemon.name).toBe(pikachu.name);
+  });
 });
