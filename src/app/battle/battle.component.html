@@ -1,2 +1,7 @@
-<p>{{pokemon1}}</p>
-<p>{{pokemon2}}</p>
+<app-pokemon [pokemon]="pokemon1.pokemon"></app-pokemon>
+<app-pokemon [pokemon]="pokemon2.pokemon"></app-pokemon>
+<img src='/assets/img/background.png'>
+<button (click)="fight()">
+    Start fight
+</button>
+<p>{{action}}</p>

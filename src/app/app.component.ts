@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { BattleComponent } from './battle/battle.component'
 
 @Component({
   selector: 'app-root',
@@ -7,11 +6,5 @@ import { BattleComponent } from './battle/battle.component'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'PokemonArena';
-  @Input() battle: BattleComponent;
-
-  ngOnInit(): void {
-    
-  }
-
+  title = 'Pokemon Arena';
 }

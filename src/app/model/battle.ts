@@ -1,7 +1,8 @@
 import Pokemon from "./pokemon";
 
 class Battle {
-    static interval: NodeJS.Timeout;
+    //static interval: NodeJS.Timeout;
+    static interval;
 
     static getRandomInt(max: number): number {
         return Math.floor(Math.random() * Math.floor(max));
@@ -41,7 +42,7 @@ class Battle {
                     console.log(order[1].name + ' gagne !');
                     return;
                 }
-            }, 500, pokemon1, pokemon2);
+            }, 1000, pokemon1, pokemon2);
         });
     }
 }
