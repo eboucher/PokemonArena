@@ -62,12 +62,9 @@ export class BattleComponent implements OnInit {
         this.action += 'Nouveau tour \n\r';
         const order = this.orderPokemonToAttack(pokemon1, pokemon2);
         console.log(`${order[0].name} commence`);
-        this.message = new MessageComponent();
-        this.message.content = 'zzzepartis';
         this.action += `${order[0].name} commence \n\r`;
         this.action += order[0].attackTarget(order[0].attacks[0], order[1]) + `\n\r`;
         this.action += order[1].takeDamages(order[0].attacks[0], order[0]) + `\n\r` ;
-
         if (order[1].health <= 0) {
           order[1].health = 0;
           resolve(order[0]);

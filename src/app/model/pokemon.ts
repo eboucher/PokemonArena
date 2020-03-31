@@ -13,7 +13,7 @@ class Pokemon {
     ) {}
 
     public attackTarget(attack: Attack, target: Pokemon): string {
-        // console.log(this.name + ' attaque ' + target.name + ' avec ' + attack.name);
+         console.log(this.name + ' attaque ' + target.name + ' avec ' + attack.name);
         // target.takeDamages(attack, this);
         return this.name + ' attaque ' + target.name + ' avec ' + attack.name;
     }
@@ -22,7 +22,7 @@ class Pokemon {
         let damages: number =
           Math.floor(Math.floor(Math.floor(2 * attacker.level / 5 + 2) * attacker.attack * attack.power / this.defense) / 50) + 2;
         this.health = this.health - damages;
-        // console.log(this.name + ' prends ' + damages + ' de dommages');
+        console.log(this.name + ' prends ' + damages + ' de dommages');
         return this.name + ' prends ' + damages + ' de dommages';
     }
 }
