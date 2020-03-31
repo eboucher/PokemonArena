@@ -29,14 +29,14 @@ class Battle {
                 const order = Battle.orderPokemonToAttack(pokemon1, pokemon2);
                 console.log(`${order[0].name} commence`);
                 order[0].attackTarget(order[0].attacks[0], order[1]);
-                if (order[1].health <= 0) {
+                if (order[1].currentHealth <= 0) {
                     resolve(order[0]);
                     clearInterval(Battle.interval);
                     console.log(order[0].name + ' gagne !');
                     return;
                 }
                 order[1].attackTarget(order[1].attacks[0], order[0]);
-                if (order[0].health <= 0) {
+                if (order[0].currentHealth <= 0) {
                     resolve(order[1]);
                     clearInterval(Battle.interval);
                     console.log(order[1].name + ' gagne !');

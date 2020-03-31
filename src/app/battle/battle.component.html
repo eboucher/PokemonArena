@@ -3,4 +3,10 @@
 <button (click)="fight()">
     Start fight
 </button>
+<button [disabled]="!onPause" (click)="pause()">
+  Pause
+</button>
+<button [disabled]="!onStart" (click)="play()">
+  Play
+</button>
 <app-message></app-message>

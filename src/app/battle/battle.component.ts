@@ -16,6 +16,8 @@ export class BattleComponent implements OnInit {
   @Input() action = ' ';
   @Input() message: MessageComponent;
   interval: any;
+  onStart: boolean;
+  onPause: boolean;
 
   constructor() { }
 
@@ -31,10 +33,22 @@ export class BattleComponent implements OnInit {
     this.pokemon1.image =  '.https://www.pokepedia.fr/images/archive/0/06/20081102125949%21Magicarpe-RFVF.png';
     this.pokemon2.pokemon = new Pokemon('Magicarpe', 50, 142, 117, 90, 156, attacks);
     this.pokemon2.image = '../../assets/img/129.png';
+    this.onStart = false;
+    this.onPause = false;
   }
 
   fight(): void{
     this.simulateFight(this.pokemon1.pokemon, this.pokemon2.pokemon);
+    this.onPause = true;
+
+  }
+  pause(): void{
+    clearInterval(this.interval);
+    this.onStart = true;
+  }
+  play(): void{
+    this.simulateFight(this.pokemon1.pokemon, this.pokemon2.pokemon);
+    this.onStart = false;
   }
 
   getRandomInt(max: number): number {
