@@ -1,9 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { BattleComponent } from './battle.component';
-import {PokemonComponent} from '../pokemon/pokemon.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {AppComponent} from '../app.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { AppComponent } from '../app.component';
 import Pokemon from '../model/pokemon';
 import Attack from '../model/attack';
 
@@ -14,8 +12,8 @@ describe('BattleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BattleComponent,
-      PokemonComponent,
+      declarations: [ 
+      BattleComponent,
       AppComponent],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
@@ -59,10 +57,17 @@ describe('BattleComponent', () => {
     const frankSinatra: Attack = new Attack('FrankSinatra', 50, 100, 'Pulverisation', 'Physic');
     const linkToThePast: Attack = new Attack('LinkToThePast', 50, 100, 'Pulverisation', 'Physic');
     const attacks: Array<Attack> = [frankSinatra, linkToThePast];
-    component.pokemon1.pokemon = new Pokemon('Pikachu', 50, 142, 117, 90, 156, attacks);
-    component.pokemon2.pokemon = new Pokemon('Aligatorus', 50, 1, 117, 90, 156, attacks);
-    component.simulateFight(component.pokemon1.pokemon, component.pokemon2.pokemon);
+    component.pokemon1 = new Pokemon('Pikachu', 50, 142, 117, 90, 156, '../../assets/img/25.png', attacks);
+    component.pokemon2 = new Pokemon('Aligatorus', 50, 1, 117, 90, 156, '../../assets/img/129.png', attacks);
+    component.simulateFight(component.pokemon1, component.pokemon2);
     fixture.detectChanges();
-    component.simulateFight(component.pokemon1.pokemon, component.pokemon2.pokemon).then(pokemon => expect(pokemon).toBe('Pikachu'));
+    component.simulateFight(component.pokemon1, component.pokemon2).then(pokemon => expect(pokemon).toBe('Pikachu'));
+  });
+
+  it('should print nouveau tour', () => {
+    component = fixture.componentInstance;
+    view.querySelector('#fight').click();
+    fixture.detectChanges();
+    expect(view.textContent).toContain('tour');
   });
 });

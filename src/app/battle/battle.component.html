@@ -1,5 +1,5 @@
-<app-pokemon [pokemon]="pokemon1.pokemon"></app-pokemon>
-<app-pokemon [pokemon]="pokemon2.pokemon"></app-pokemon>
+<app-pokemon [pokemon]="pokemon1"></app-pokemon>
+<app-pokemon [pokemon]="pokemon2"></app-pokemon>
 <button id="fight" (click)="fight()">
     Start fight
 </button>
@@ -12,4 +12,4 @@
 <button id="reset" (click)="reset()">
   Reset fight
 </button>
-<app-message></app-message>
+<app-message [contents]="message.contents"></app-message>

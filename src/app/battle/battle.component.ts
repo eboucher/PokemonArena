@@ -1,23 +1,20 @@
 import { Component, OnInit, Input } from '@angular/core';
 import Pokemon from '../model/pokemon';
 import Attack from '../model/attack';
-import { PokemonComponent } from '../pokemon/pokemon.component';
-import { MessageComponent } from '../message/message.component';
+
 @Component({
   selector: 'app-battle',
   templateUrl: './battle.component.html',
   styleUrls: ['./battle.component.css']
 })
 export class BattleComponent implements OnInit {
-  @Input() pokemon1: PokemonComponent;
-  @Input() pokemon2: PokemonComponent;
-  @Input() action = ' ';
-  @Input() message: MessageComponent;
+  @Input() pokemon1: Pokemon;
+  @Input() pokemon2: Pokemon;
+  @Input() message: any;
   interval: any;
   onStart: boolean;
   onPause: boolean;
   winner: string;
-
 
   constructor() { }
 
@@ -25,32 +22,31 @@ export class BattleComponent implements OnInit {
     const charge: Attack = new Attack('Charge', 50, 100, 'Normal', 'Physic');
     const trempette: Attack = new Attack('trempette', 0, 100, 'Normal', 'Physic');
     const attacks: Array<Attack> = [charge, trempette];
-    this.pokemon1 = new PokemonComponent();
-    this.pokemon2 = new PokemonComponent();
-    // this.charge = new AttackComponent();
-    // this.trempette = new AttackComponent();
-    this.pokemon1.pokemon = new Pokemon('Pikachu', 50, 142, 117, 90, 156, attacks);
-    this.pokemon1.image =  '.https://www.pokepedia.fr/images/archive/0/06/20081102125949%21Magicarpe-RFVF.png';
-    this.pokemon2.pokemon = new Pokemon('Magicarpe', 50, 142, 117, 90, 156, attacks);
-    this.pokemon2.image = '../../assets/img/129.png';
+    this.message = { contents:[] };
+
+    this.pokemon1 = new Pokemon('Pikachu', 50, 142, 117, 90, 156, '../../assets/img/25.png', attacks);
+    this.pokemon2 = new Pokemon('Magicarpe', 50, 142, 117, 90, 156, '../../assets/img/129.png', attacks);
     this.onStart = false;
     this.onPause = false;
   }
 
   fight(): void{
-    this.simulateFight(this.pokemon1.pokemon, this.pokemon2.pokemon);
+    this.simulateFight(this.pokemon1, this.pokemon2);
     this.onPause = true;
 
   }
+
   pause(): void{
     clearInterval(this.interval);
     this.onStart = true;
   }
+
   play(): void{
-    this.simulateFight(this.pokemon1.pokemon, this.pokemon2.pokemon);
+    this.simulateFight(this.pokemon1, this.pokemon2);
     this.onStart = false;
   }
-  reset(): void{
+
+  reset(): void {
     this.ngOnInit();
   }
 
@@ -58,7 +54,7 @@ export class BattleComponent implements OnInit {
     return Math.floor(Math.random() * Math.floor(max));
   }
 
-   orderPokemonToAttack(pokemon1: Pokemon, pokemon2: Pokemon): Pokemon[] {
+  orderPokemonToAttack(pokemon1: Pokemon, pokemon2: Pokemon): Pokemon[] {
     if (pokemon1.speed > pokemon2.speed) {
       return [pokemon1, pokemon2];
     }
@@ -76,37 +72,40 @@ export class BattleComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.interval = setInterval(() => {
         console.log('Nouveau tour');
-        this.action += 'Nouveau tour \n\r';
+        this.message.contents.push('Nouveau tour');
+
         const order = this.orderPokemonToAttack(pokemon1, pokemon2);
         console.log(`${order[0].name} commence`);
-        this.action += `${order[0].name} commence \n\r`;
-        this.action += order[0].attackTarget(order[0].attacks[0], order[1]) + `\n\r`;
-        this.action += order[1].takeDamages(order[0].attacks[0], order[0]) + `\n\r` ;
+        this.message.contents.push(`${order[0].name} commence`);
+
+        this.message.contents.push(order[0].attackTarget(order[0].attacks[0], order[1]));
+        this.message.contents.push(order[1].takeDamages(order[0].attacks[0], order[0]));
 
         if (order[1].currentHealth <= 0) {
           order[1].currentHealth = 0;
           resolve(order[0]);
           clearInterval(this.interval);
-          console.log(order[0].name + ' gagne !');
-          this.action += order[0].name + ' gagne ! \n\r';
+
+          console.log(`${order[0].name} gagne !`);
+          this.message.contents.push(`${order[0].name} gagne !`);
           this.winner = order[0].name;
           return;
         }
-        this.action += order[1].attackTarget(order[1].attacks[0], order[0]) + `\n\r`;
-        this.action += order[0].takeDamages(order[1].attacks[0], order[1]) + `\n\r`;
+
+        this.message.contents.push(order[1].attackTarget(order[1].attacks[0], order[0]));
+        this.message.contents.push(order[0].takeDamages(order[1].attacks[0], order[1]));
 
         if (order[0].currentHealth <= 0) {
           order[0].currentHealth = 0;
           resolve(order[1]);
           clearInterval(this.interval);
-          console.log(order[1].name + ' gagne !');
-          this.action += order[1].name + ' gagne ! \n\r';
+
+          console.log(`${order[1].name} gagne !`);
+          this.message.contents.push(`${order[1].name} gagne !`);
           this.winner = order[1].name;
           return;
         }
       }, 1000, pokemon1, pokemon2);
     });
   }
-
-
 }
