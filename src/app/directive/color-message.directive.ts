@@ -1,11 +1,13 @@
-import { Directive, HostBinding } from '@angular/core';
+import {Directive, HostBinding, Input} from '@angular/core';
 
 @Directive({
   selector: '[appColorMessage]'
 })
 export class ColorMessageDirective {
-  @HostBinding('style.backgroundColor') color = 'red';
+  @Input() @HostBinding('style.color') color;
 
-  constructor() { }
+
+  constructor() {
+  }
 
 }

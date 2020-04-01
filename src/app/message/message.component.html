@@ -1,5 +1,8 @@
 <ul>
     <li *ngFor="let log of loggerService.logs">
-        {{log.message}}
+      <p *ngIf="log.type == 0" appColorMessage [color]="'black'" >{{log.message}}</p>
+      <p *ngIf="log.type == 1" appColorMessage [color]="'blue'" >{{log.message}}</p>
+      <p *ngIf="log.type == 2" appColorMessage [color]="'green'" >{{log.message}}</p>
+      <p *ngIf="log.type == 3" appColorMessage [color]="'red'" >{{log.message}}</p>
     </li>
 </ul>
