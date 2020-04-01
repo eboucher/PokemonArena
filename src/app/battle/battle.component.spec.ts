@@ -4,17 +4,22 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppComponent } from '../app.component';
 import Pokemon from '../model/pokemon';
 import Attack from '../model/attack';
+import { BattleService } from '../service/battle.service';
 
 describe('BattleComponent', () => {
   let component: BattleComponent;
   let fixture: ComponentFixture<BattleComponent>;
   let view: any;
+  let battleService: BattleService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ 
       BattleComponent,
       AppComponent],
+      providers: [
+        BattleService
+      ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
       ]
@@ -59,9 +64,9 @@ describe('BattleComponent', () => {
     const attacks: Array<Attack> = [frankSinatra, linkToThePast];
     component.pokemon1 = new Pokemon('Pikachu', 50, 142, 117, 90, 156, '../../assets/img/25.png', attacks);
     component.pokemon2 = new Pokemon('Aligatorus', 50, 1, 117, 90, 156, '../../assets/img/129.png', attacks);
-    component.simulateFight(component.pokemon1, component.pokemon2);
+    this.battleService.simulateFight(component.pokemon1, component.pokemon2);
     fixture.detectChanges();
-    component.simulateFight(component.pokemon1, component.pokemon2).then(pokemon => expect(pokemon).toBe('Pikachu'));
+    this.battleService.simulateFight(component.pokemon1, component.pokemon2).then(pokemon => expect(pokemon).toBe('Pikachu'));
   });
 
   it('should print nouveau tour', () => {
