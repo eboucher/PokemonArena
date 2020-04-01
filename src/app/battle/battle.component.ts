@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import Pokemon from '../model/pokemon';
 import Attack from '../model/attack';
-import Log from '../model/log';
-import TypeLog from '../model/typelog';
 import { LoggerService } from '../service/logger.service';
 
 @Component({
@@ -74,40 +72,40 @@ export class BattleComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.interval = setInterval(() => {
         console.log('Nouveau tour');
-        this.loggerService.add(new Log(TypeLog.Normal, 'Nouveau tour'));
+        this.loggerService.addNormalLog('Nouveau tour');
 
         const order = this.orderPokemonToAttack(pokemon1, pokemon2);
         console.log(`${order[0].name} commence`);
-        this.loggerService.add(new Log(TypeLog.Normal, `${order[0].name} commence`));
+        this.loggerService.addNormalLog(`${order[0].name} commence`);
 
-        this.loggerService.add(new Log(TypeLog.Pokemon1, order[0].attackTarget(order[0].attacks[0], order[1])));
-        this.loggerService.add(new Log(TypeLog.Pokemon2, order[1].takeDamages(order[0].attacks[0], order[0])));
+        this.loggerService.addPokemon1Log(order[0].attackTarget(order[0].attacks[0], order[1]));
+        this.loggerService.addPokemon2Log(order[1].takeDamages(order[0].attacks[0], order[0]));
 
         if (order[1].currentHealth <= 0) {
           order[1].currentHealth = 0;
           resolve(order[0]);
           clearInterval(this.interval);
           console.log(`${order[1].name} est KO !`);
-          this.loggerService.add(new Log(TypeLog.Dead, `${order[1].name} est KO !`));
+          this.loggerService.addDeadLog(`${order[1].name} est KO !`);
           order[1].image = '../../assets/img/cross.png';
           console.log(`${order[0].name} gagne !`);
-          this.loggerService.add(new Log(TypeLog.Normal, `${order[0].name} gagne !`));
+          this.loggerService.addNormalLog(`${order[0].name} gagne !`);
           this.winner = order[0].name;
           return;
         }
 
-        this.loggerService.add(new Log(TypeLog.Pokemon2, order[1].attackTarget(order[1].attacks[0], order[0])));
-        this.loggerService.add(new Log(TypeLog.Pokemon1, order[0].takeDamages(order[1].attacks[0], order[1])));
+        this.loggerService.addPokemon2Log(order[1].attackTarget(order[1].attacks[0], order[0]));
+        this.loggerService.addPokemon1Log(order[0].takeDamages(order[1].attacks[0], order[1]));
 
         if (order[0].currentHealth <= 0) {
           order[0].currentHealth = 0;
           resolve(order[1]);
           clearInterval(this.interval);
           console.log(`${order[0].name} est KO !`);
-          this.loggerService.add(new Log(TypeLog.Dead, `${order[0].name} est KO !`));
+          this.loggerService.addDeadLog(`${order[0].name} est KO !`);
           order[0].image = '../../assets/img/cross.png';
           console.log(`${order[1].name} gagne !`);
-          this.loggerService.add(new Log(TypeLog.Normal, `${order[1].name} gagne !`));
+          this.loggerService.addNormalLog(`${order[1].name} gagne !`);
           this.winner = order[1].name;
           return;
         }
