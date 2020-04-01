@@ -7,6 +7,7 @@ import { PokemonComponent } from './pokemon/pokemon.component';
 import { BattleComponent } from './battle/battle.component';
 import { AttackComponent } from './attack/attack.component';
 import { MessageComponent } from './message/message.component';
+import { ColorMessageDirective } from './directive/color-message.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { MessageComponent } from './message/message.component';
     PokemonComponent,
     BattleComponent,
     AttackComponent,
-    MessageComponent
+    MessageComponent,
+    ColorMessageDirective
   ],
   imports: [
     BrowserModule
