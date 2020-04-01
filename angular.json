@@ -105,6 +105,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "PokemonArena"
+    }
+  },
+  "defaultProject": "PokemonArena",
+  "cli": {
+    "analytics": false
+  }
 }
