@@ -17,11 +17,11 @@ export class BattleComponent implements OnInit {
 
   constructor(
     public loggerService: LoggerService,
-    private battleService: BattleService
+    public battleService: BattleService
     ) { }
 
   ngOnInit(): void {
-    this.reset();  
+    this.reset();
   }
 
   fight(): void {
@@ -49,5 +49,5 @@ export class BattleComponent implements OnInit {
     this.pokemon2 = new Pokemon('Magicarpe', 50, 142, 117, 90, 156, './assets/img/129.png', attacks);
     this.onStart = false;
     this.onPause = false;
-  }  
+  }
 }

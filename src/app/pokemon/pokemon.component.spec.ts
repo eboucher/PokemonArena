@@ -1,31 +1,27 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PokemonComponent } from './pokemon.component';
 import Pokemon from '../model/pokemon';
-import Attack from '../model/attack';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('PokemonComponent', () => {
   let component: PokemonComponent;
   let fixture: ComponentFixture<PokemonComponent>;
-  let pikachu: Pokemon;
-
+  let view: any;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PokemonComponent ]
+      declarations: [ PokemonComponent ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PokemonComponent);
+    view = fixture.nativeElement;
     component = fixture.componentInstance;
-
-    let pikachuAttacks = Array<Attack>();
-    const charge: Attack = new Attack("Charge", 50, 100, "Normal", "Physic");
-    pikachuAttacks.push(charge);
-    pikachu = new Pokemon("Pikachu", 50, 142, 117, 90, 156, '../../assets/img/25.png', pikachuAttacks);
-    component.pokemon = pikachu;
-
+    component.pokemon = new Pokemon('Pikachu', 50, 142, 117, 90, 156, '../../assets/img/25.png', null);
     fixture.detectChanges();
   });
 
@@ -34,6 +30,6 @@ describe('PokemonComponent', () => {
   });
 
   it('should create pokemon element', () => {
-    expect(component.pokemon.name).toBe(pikachu.name);
+    expect(view.textContent).toContain('Pikachu');
   });
 });
