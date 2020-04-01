@@ -8,7 +8,6 @@ import Pokemon from '../model/pokemon';
 })
 export class PokemonComponent implements OnInit {
   @Input() pokemon: Pokemon;
-  @Input() image: string;
 
   constructor() { }
 

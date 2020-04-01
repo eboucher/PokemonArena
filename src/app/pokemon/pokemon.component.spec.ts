@@ -23,7 +23,7 @@ describe('PokemonComponent', () => {
     let pikachuAttacks = Array<Attack>();
     const charge: Attack = new Attack("Charge", 50, 100, "Normal", "Physic");
     pikachuAttacks.push(charge);
-    pikachu = new Pokemon("Pikachu", 50, 142, 117, 90, 156, pikachuAttacks);
+    pikachu = new Pokemon("Pikachu", 50, 142, 117, 90, 156, '../../assets/img/25.png', pikachuAttacks);
     component.pokemon = pikachu;
 
     fixture.detectChanges();
