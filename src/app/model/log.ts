@@ -1,8 +1,8 @@
-import TypeLog from "./typelog";
+import LogType from "./logtype";
 
 class Log {
     constructor(
-       public type: TypeLog,
+       public type: LogType,
        public message: string 
     ) {}
 }

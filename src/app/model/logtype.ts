@@ -1,8 +1,8 @@
-enum TypeLog {
+enum LogType {
     Normal,
     Pokemon1,
     Pokemon2,
     Dead
 }
 
-export default TypeLog;
+export default LogType;
