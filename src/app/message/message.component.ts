@@ -9,8 +9,9 @@ import { LoggerService } from '../service/logger.service';
 })
 export class MessageComponent implements OnInit {
   @Input() logs: Array<Log>;
+  today: number = Date.now();
 
-  constructor(public loggerService : LoggerService) { }
+  constructor(public loggerService: LoggerService) { }
 
   ngOnInit(): void {
   }

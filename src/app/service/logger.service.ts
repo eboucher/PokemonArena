@@ -26,6 +26,9 @@ export class LoggerService {
   addDeadLog(message: string): void {
     this.logs.push(new Log(LogType.Dead, message));
   }
+  addBeginLog(message: string): void {
+    this.logs.push(new Log(LogType.Begin, message));
+  }
 
   clear() : void {
     this.logs = [];

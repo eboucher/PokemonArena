@@ -25,6 +25,7 @@ export class BattleComponent implements OnInit {
   }
 
   fight(): void {
+    this.loggerService.addBeginLog('');
     this.battleService.simulateFight(this.pokemon1, this.pokemon2);
     this.onPause = true;
   }

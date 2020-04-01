@@ -1,9 +1,9 @@
-import LogType from "./logtype";
+import LogType from './logtype';
 
 class Log {
     constructor(
        public type: LogType,
-       public message: string 
+       public message: string
     ) {}
 }
 
