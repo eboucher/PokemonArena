@@ -19,14 +19,8 @@ export class BattleComponent implements OnInit {
   constructor(public loggerService: LoggerService) { }
 
   ngOnInit(): void {
-    const charge: Attack = new Attack('Charge', 50, 100, 'Normal', 'Physic');
-    const trempette: Attack = new Attack('trempette', 0, 100, 'Normal', 'Physic');
-    const attacks: Array<Attack> = [charge, trempette];
-
-    this.pokemon1 = new Pokemon('Pikachu', 50, 142, 117, 90, 156, '../../assets/img/25.png', attacks);
-    this.pokemon2 = new Pokemon('Magicarpe', 50, 142, 117, 90, 156, '../../assets/img/129.png', attacks);
-    this.onStart = false;
-    this.onPause = false;
+    this.reset();
+    
   }
 
   fight(): void {
@@ -46,8 +40,15 @@ export class BattleComponent implements OnInit {
   }
 
   reset(): void {
-    this.ngOnInit();
     this.loggerService.clear();
+    const charge: Attack = new Attack('Charge', 50, 100, 'Normal', 'Physic');
+    const trempette: Attack = new Attack('trempette', 0, 100, 'Normal', 'Physic');
+    const attacks: Array<Attack> = [charge, trempette];
+
+    this.pokemon1 = new Pokemon('Pikachu', 50, 142, 117, 90, 156, './assets/img/25.png', attacks);
+    this.pokemon2 = new Pokemon('Magicarpe', 50, 142, 117, 90, 156, './assets/img/129.png', attacks);
+    this.onStart = false;
+    this.onPause = false;
   }
 
   getRandomInt(max: number): number {
