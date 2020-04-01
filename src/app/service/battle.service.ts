@@ -7,6 +7,8 @@ import { LoggerService } from './logger.service';
 })
 export class BattleService {
   interval: any;
+  damages: number;
+
 
   constructor(private loggerService: LoggerService) { }
 
@@ -37,10 +39,10 @@ export class BattleService {
         const order = this.orderPokemonToAttack(pokemon1, pokemon2);
         console.log(`${order[0].name} commence`);
         this.loggerService.addNormalLog(`${order[0].name} commence`);
-
         this.loggerService.addPokemon1Log(order[0].attackTarget(order[0].attacks[0], order[1]));
-        this.loggerService.addPokemon2Log(order[1].takeDamages(order[0].attacks[0], order[0]));
-
+        // this.loggerService.addPokemon2Log(order[1].takeDamages(order[0].attacks[0], order[0]));
+        this.damages = order[1].takeDamages(order[0].attacks[0], order[0]);
+        this.loggerService.addDamageLog('', order[0].name, this.damages);
         if (order[1].currentHealth <= 0) {
           order[1].currentHealth = 0;
           resolve(order[0]);
@@ -54,8 +56,9 @@ export class BattleService {
         }
 
         this.loggerService.addPokemon2Log(order[1].attackTarget(order[1].attacks[0], order[0]));
-        this.loggerService.addPokemon1Log(order[0].takeDamages(order[1].attacks[0], order[1]));
-
+        // this.loggerService.addPokemon1Log(order[0].takeDamages(order[1].attacks[0], order[1]));
+        this.damages = order[0].takeDamages(order[1].attacks[0], order[1]);
+        this.loggerService.addDamageLog('', order[1].name, this.damages);
         if (order[0].currentHealth <= 0) {
           order[0].currentHealth = 0;
           resolve(order[1]);

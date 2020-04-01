@@ -4,6 +4,7 @@ enum LogType {
     Pokemon2,
     Dead,
     Begin,
+    Damage
 }
 
 export default LogType;
