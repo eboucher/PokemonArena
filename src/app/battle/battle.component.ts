@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import Pokemon from '../model/pokemon';
 import Attack from '../model/attack';
+import Log from '../model/log';
+import TypeLog from '../model/typelog';
+import { LoggerService } from '../service/logger.service';
 
 @Component({
   selector: 'app-battle',
@@ -10,19 +13,17 @@ import Attack from '../model/attack';
 export class BattleComponent implements OnInit {
   @Input() pokemon1: Pokemon;
   @Input() pokemon2: Pokemon;
-  @Input() message: any;
   interval: any;
   onStart: boolean;
   onPause: boolean;
   winner: string;
 
-  constructor() { }
+  constructor(public loggerService: LoggerService) { }
 
   ngOnInit(): void {
     const charge: Attack = new Attack('Charge', 50, 100, 'Normal', 'Physic');
     const trempette: Attack = new Attack('trempette', 0, 100, 'Normal', 'Physic');
     const attacks: Array<Attack> = [charge, trempette];
-    this.message = { contents:[] };
 
     this.pokemon1 = new Pokemon('Pikachu', 50, 142, 117, 90, 156, '../../assets/img/25.png', attacks);
     this.pokemon2 = new Pokemon('Magicarpe', 50, 142, 117, 90, 156, '../../assets/img/129.png', attacks);
@@ -30,24 +31,25 @@ export class BattleComponent implements OnInit {
     this.onPause = false;
   }
 
-  fight(): void{
+  fight(): void {
     this.simulateFight(this.pokemon1, this.pokemon2);
     this.onPause = true;
 
   }
 
-  pause(): void{
+  pause(): void {
     clearInterval(this.interval);
     this.onStart = true;
   }
 
-  play(): void{
+  play(): void {
     this.simulateFight(this.pokemon1, this.pokemon2);
     this.onStart = false;
   }
 
   reset(): void {
     this.ngOnInit();
+    this.loggerService.clear();
   }
 
   getRandomInt(max: number): number {
@@ -72,36 +74,40 @@ export class BattleComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.interval = setInterval(() => {
         console.log('Nouveau tour');
-        this.message.contents.push('Nouveau tour');
+        this.loggerService.add(new Log(TypeLog.Normal, 'Nouveau tour'));
 
         const order = this.orderPokemonToAttack(pokemon1, pokemon2);
         console.log(`${order[0].name} commence`);
-        this.message.contents.push(`${order[0].name} commence`);
+        this.loggerService.add(new Log(TypeLog.Normal, `${order[0].name} commence`));
 
-        this.message.contents.push(order[0].attackTarget(order[0].attacks[0], order[1]));
-        this.message.contents.push(order[1].takeDamages(order[0].attacks[0], order[0]));
+        this.loggerService.add(new Log(TypeLog.Pokemon1, order[0].attackTarget(order[0].attacks[0], order[1])));
+        this.loggerService.add(new Log(TypeLog.Pokemon2, order[1].takeDamages(order[0].attacks[0], order[0])));
 
         if (order[1].currentHealth <= 0) {
           order[1].currentHealth = 0;
           resolve(order[0]);
           clearInterval(this.interval);
-
+          console.log(`${order[1].name} est KO !`);
+          this.loggerService.add(new Log(TypeLog.Dead, `${order[1].name} est KO !`));
+          order[1].image = '../../assets/img/cross.png';
           console.log(`${order[0].name} gagne !`);
-          this.message.contents.push(`${order[0].name} gagne !`);
+          this.loggerService.add(new Log(TypeLog.Normal, `${order[0].name} gagne !`));
           this.winner = order[0].name;
           return;
         }
 
-        this.message.contents.push(order[1].attackTarget(order[1].attacks[0], order[0]));
-        this.message.contents.push(order[0].takeDamages(order[1].attacks[0], order[1]));
+        this.loggerService.add(new Log(TypeLog.Pokemon2, order[1].attackTarget(order[1].attacks[0], order[0])));
+        this.loggerService.add(new Log(TypeLog.Pokemon1, order[0].takeDamages(order[1].attacks[0], order[1])));
 
         if (order[0].currentHealth <= 0) {
           order[0].currentHealth = 0;
           resolve(order[1]);
           clearInterval(this.interval);
-
+          console.log(`${order[0].name} est KO !`);
+          this.loggerService.add(new Log(TypeLog.Dead, `${order[0].name} est KO !`));
+          order[0].image = '../../assets/img/cross.png';
           console.log(`${order[1].name} gagne !`);
-          this.message.contents.push(`${order[1].name} gagne !`);
+          this.loggerService.add(new Log(TypeLog.Normal, `${order[1].name} gagne !`));
           this.winner = order[1].name;
           return;
         }

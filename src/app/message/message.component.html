@@ -1,3 +1,5 @@
-<ul *ngFor="let content of contents">
-    <li>{{content}}</li>
+<ul>
+    <li *ngFor="let log of loggerService.logs">
+        {{log.message}}
+    </li>
 </ul>

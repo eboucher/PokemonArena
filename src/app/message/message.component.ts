@@ -1,4 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import Log from '../model/log';
+import { LoggerService } from '../service/logger.service';
 
 @Component({
   selector: 'app-message',
@@ -6,9 +8,9 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./message.component.css']
 })
 export class MessageComponent implements OnInit {
-  @Input() contents: Array<string>;
+  @Input() logs: Array<Log>;
 
-  constructor() { }
+  constructor(public loggerService : LoggerService) { }
 
   ngOnInit(): void {
   }
