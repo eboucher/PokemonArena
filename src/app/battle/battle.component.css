@@ -1,0 +1,33 @@
+.background-battle-pokemon{
+  width: 337px;
+  height: 209px;
+  border: 0;
+}
+.pokemon2{
+  border: 3px solid;
+  padding: 10px;
+  text-align: center;
+  background-color: rgb(225,198,153);
+  height: 209px;
+}
+.pokemon1{
+  border: 3px solid;
+  padding: 10px;
+  text-align: center;
+  background-color: rgb(225,198,153);
+  height: 209px;
+}
+.button{
+  text-align: center;
+}
+.message{
+  background-color: rgb(225,198,153);
+  height: 500px;
+  width: 337px;
+  overflow:auto;
+  border: 4px solid;
+}
+.grtf{
+  margin-left: 10px;
+  font-family: cursive;
+}
