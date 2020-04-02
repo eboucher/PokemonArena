@@ -31,9 +31,9 @@ export class LoggerService {
     this.logs.push(new Log(LogType.Begin, message));
   }
 
-  addDamageLog(attacker: string, damage: number): void {
+  addDamageLog(defender: string, damage: number): void {
     const logDamage: Log = new Log(LogType.Damage, '');
-    logDamage.defender = attacker;
+    logDamage.defender = defender;
     logDamage.damage = damage;
     this.logs.push(logDamage);
   }
