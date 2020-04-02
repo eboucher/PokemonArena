@@ -3,6 +3,7 @@ import Pokemon from '../model/pokemon';
 import Attack from '../model/attack';
 import { LoggerService } from '../service/logger.service';
 import { BattleService } from '../service/battle.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-battle',
@@ -12,6 +13,7 @@ import { BattleService } from '../service/battle.service';
 export class BattleComponent implements OnInit {
   @Input() pokemon1: Pokemon;
   @Input() pokemon2: Pokemon;
+  private subscriber: Subscription;
   onStart: boolean;
   onPause: boolean;
 
@@ -26,17 +28,17 @@ export class BattleComponent implements OnInit {
 
   fight(): void {
     this.loggerService.addBeginLog('');
-    this.battleService.simulateFight(this.pokemon1, this.pokemon2);
+    this.subscriber = this.battleService.simulateFight(this.pokemon1, this.pokemon2).subscribe();
     this.onPause = true;
   }
 
   pause(): void {
-    this.battleService.clearInterval();
+    this.subscriber.unsubscribe();
     this.onStart = true;
   }
 
   play(): void {
-    this.battleService.simulateFight(this.pokemon1, this.pokemon2);
+    this.subscriber = this.battleService.simulateFight(this.pokemon1, this.pokemon2).subscribe();
     this.onStart = false;
   }
 

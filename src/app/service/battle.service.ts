@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import Pokemon from '../model/pokemon';
 import { LoggerService } from './logger.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,49 +30,49 @@ export class BattleService {
     }
   }
 
-  simulateFight(pokemon1: Pokemon, pokemon2: Pokemon): Promise<Pokemon> {
-    return new Promise((resolve, reject) => {
-      this.interval = setInterval(() => {
-        console.log('Nouveau tour');
+  simulateFight(pokemon1: Pokemon, pokemon2: Pokemon): Observable<Pokemon> {
+    return new Observable(observer => {
+      this.interval = setInterval( () => {
         this.loggerService.addNormalLog('Nouveau tour');
 
         const order = this.orderPokemonToAttack(pokemon1, pokemon2);
-        console.log(`${order[0].name} commence`);
         this.loggerService.addNormalLog(`${order[0].name} commence`);
+
         this.loggerService.addPokemon1Log(order[0].attackTarget(order[0].attacks[0], order[1]));
+
         this.damages = order[1].takeDamages(order[0].attacks[0], order[0]);
         this.loggerService.addDamageLog(order[0].name, this.damages);
+
         if (order[1].currentHealth <= 0) {
           order[1].currentHealth = 0;
-          resolve(order[0]);
-          clearInterval(this.interval);
-          console.log(`${order[1].name} est KO !`);
           this.loggerService.addDeadLog(`${order[1].name} est KO !`);
           order[1].image = 'assets/img/cross.png';
-          console.log(`${order[0].name} gagne !`);
+
           this.loggerService.addNormalLog(`${order[0].name} gagne !`);
+          observer.complete();
+          clearInterval(this.interval);
           return;
         }
 
         this.loggerService.addPokemon2Log(order[1].attackTarget(order[1].attacks[0], order[0]));
+
         this.damages = order[0].takeDamages(order[1].attacks[0], order[1]);
         this.loggerService.addDamageLog(order[1].name, this.damages);
+
         if (order[0].currentHealth <= 0) {
           order[0].currentHealth = 0;
-          resolve(order[1]);
-          clearInterval(this.interval);
-          console.log(`${order[0].name} est KO !`);
           this.loggerService.addDeadLog(`${order[0].name} est KO !`);
           order[0].image = 'assets/img/cross.png';
-          console.log(`${order[1].name} gagne !`);
+          
           this.loggerService.addNormalLog(`${order[1].name} gagne !`);
+          observer.complete();
+          clearInterval(this.interval);
           return;
         }
-      }, 1000, pokemon1, pokemon2);
-    });
-  }
-
-  clearInterval(): void {
-    clearInterval(this.interval);
+      }, 1000);
+      return () => {
+        observer.complete();
+        clearInterval(this.interval);
+    };});
   }
 }
