@@ -2,7 +2,7 @@ import LogType from './logtype';
 
 class Log {
     public damage: number;
-    public attacker: string;
+    public defender: string;
 
     constructor(
        public type: LogType,
