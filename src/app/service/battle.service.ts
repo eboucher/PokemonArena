@@ -9,7 +9,6 @@ export class BattleService {
   interval: any;
   damages: number;
 
-
   constructor(private loggerService: LoggerService) { }
 
   getRandomInt(max: number): number {
@@ -49,7 +48,7 @@ export class BattleService {
           clearInterval(this.interval);
           console.log(`${order[1].name} est KO !`);
           this.loggerService.addDeadLog(`${order[1].name} est KO !`);
-          order[1].image = '../../assets/img/cross.png';
+          order[1].image = 'assets/img/cross.png';
           console.log(`${order[0].name} gagne !`);
           this.loggerService.addNormalLog(`${order[0].name} gagne !`);
           return;
@@ -65,7 +64,7 @@ export class BattleService {
           clearInterval(this.interval);
           console.log(`${order[0].name} est KO !`);
           this.loggerService.addDeadLog(`${order[0].name} est KO !`);
-          order[0].image = '../../assets/img/cross.png';
+          order[0].image = 'assets/img/cross.png';
           console.log(`${order[1].name} gagne !`);
           this.loggerService.addNormalLog(`${order[1].name} gagne !`);
           return;

@@ -26,8 +26,7 @@ class Pokemon {
           Math.floor(Math.floor(Math.floor(2 * attacker.level / 5 + 2) * attacker.attack * attack.power / this.defense) / 50) + 2;
         this.currentHealth = this.currentHealth - damages;
         console.log(`${this.name} prends ${damages} de dommages`);
-        // return `${this.name} prends ${damages} de dommages`;
-        return  damages;
+        return damages;
     }
 }
 

@@ -6,7 +6,6 @@ import {Directive, HostBinding, Input} from '@angular/core';
 export class ColorMessageDirective {
   @Input() @HostBinding('style.color') color;
 
-
   constructor() {
   }
 
