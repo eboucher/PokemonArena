@@ -1,28 +1,21 @@
 <div class="content" >
-
-  <!-- PokeBox -->
-  <div class="card highlight-card card-small">
-      <img width="75" src="assets/img/Pokeball.png">
-      <span class="grtf" >Get ready for the fight!</span>
+  <div class="customPannel">
+    <button class="button" id="fight" value="Fight" (click)="fight()">
+      Start fight
+    </button>
+    <button class="button" id="pause" value="Pause" [disabled]="!onPause" (click)="pause()">
+      Pause
+    </button>
+    <button class="button" id="play" value="Play" [disabled]="!onStart" (click)="play()">
+      Play
+    </button>
+    <button class="button" id="reset" value="Reset" (click)="reset()">
+      Reset fight
+    </button>
+    <div class="card background-battle-pokemon">
+          <app-pokemon class="pokemon1" [pokemon]="pokemon1"></app-pokemon>
+          <app-pokemon class="pokemon2" [pokemon]="pokemon2"></app-pokemon>
+    </div>
   </div>
-
-<div class="card background-battle-pokemon">
-      <app-pokemon class="pokemon1" [pokemon]="pokemon1"></app-pokemon>
-      <app-pokemon class="pokemon2" [pokemon]="pokemon2"></app-pokemon>
-</div>
-</div>
-<div class="button">
-  <button id="fight" (click)="fight()">
-    Start fight
-  </button>
-  <button id="pause" [disabled]="!onPause" (click)="pause()">
-    Pause
-  </button>
-  <button id="play" [disabled]="!onStart" (click)="play()">
-    Play
-  </button>
-  <button id="reset" (click)="reset()">
-    Reset fight
-  </button>
 </div>
 <app-message class="highlight-card message content" [logs]="loggerService.logs"></app-message>
