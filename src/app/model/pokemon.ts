@@ -5,13 +5,14 @@ class Pokemon {
 
     constructor(
         public name: string,
-        public level: number,
-        public maxHealth: number,
-        public attack: number,
-        public defense: number,
-        public speed: number,
-        public image: string,
-        public attacks: Attack[]
+        public level: number = 1,
+        public maxHealth: number = 1,
+        public attack: number = 1,
+        public defense: number = 1,
+        public speed: number = 1,
+        public imageFront: string = '',
+        public imageBack: string = '',
+        public attacks: Attack[] = [new Attack('Charge', 50, 100, 'Normal', 'Physic')]
     ) {
         this.currentHealth = maxHealth;
     }
@@ -27,6 +28,24 @@ class Pokemon {
         this.currentHealth = this.currentHealth - damages;
         console.log(`${this.name} prends ${damages} de dommages`);
         return damages;
+    }
+
+    // On ignore les EV, IV et la nature des pokemons
+    public setHealth(baseStat: number) {
+        this.maxHealth = Math.floor((2 * baseStat) * this.level / 100 + this.level + 10);
+        this.currentHealth = this.maxHealth;
+    }
+
+    public setAttack(baseStat: number) {
+        this.attack = Math.floor((2 * baseStat) * this.level / 100 + 5);
+    }
+
+    public setDefense(baseStat: number) {
+        this.defense = Math.floor((2 * baseStat) * this.level / 100 + 5);
+    }
+
+    public setSpeed(baseStat: number) {
+        this.speed = Math.floor((2 * baseStat) * this.level / 100 + 5);
     }
 }
 

@@ -4,6 +4,7 @@ import Attack from '../model/attack';
 import { LoggerService } from '../service/logger.service';
 import { BattleService } from '../service/battle.service';
 import { Subscription } from 'rxjs';
+import { PokemonService } from '../service/pokemon.service';
 
 @Component({
   selector: 'app-battle',
@@ -19,7 +20,8 @@ export class BattleComponent implements OnInit {
 
   constructor(
     public loggerService: LoggerService,
-    public battleService: BattleService
+    public battleService: BattleService,
+    private pokemonService: PokemonService
     ) { }
 
   ngOnInit(): void {
@@ -48,8 +50,10 @@ export class BattleComponent implements OnInit {
     const trempette: Attack = new Attack('trempette', 0, 100, 'Normal', 'Physic');
     const attacks: Array<Attack> = [charge, trempette];
 
-    this.pokemon1 = new Pokemon('Pikachu', 50, 142, 117, 90, 156, './assets/img/25.png', attacks);
-    this.pokemon2 = new Pokemon('Magicarpe', 50, 142, 117, 90, 156, './assets/img/129.png', attacks);
+    // this.pokemon1 = new Pokemon('Pikachu', 50, 142, 117, 90, 156, './assets/img/25.png', '', attacks);
+    // this.pokemon2 = new Pokemon('Magicarpe', 50, 142, 117, 90, 156, './assets/img/129.png', '', attacks);
+    this.pokemon1 = this.pokemonService.getPokemonByName('pikachu');
+    this.pokemon2 = this.pokemonService.getPokemonByName('magikarp');
     this.onStart = false;
     this.onPause = false;
   }
