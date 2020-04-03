@@ -1,3 +1,12 @@
+export interface Result {
+    results: PokemonUrl[];
+}
+
+export interface PokemonUrl {
+    name: string;
+    url: string;
+}
+
 export interface PokemonApi {
     id: number;
     name: string;
