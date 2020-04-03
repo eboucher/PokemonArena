@@ -12,7 +12,7 @@ class Pokemon {
         public speed: number = 1,
         public imageFront: string = '',
         public imageBack: string = '',
-        public attacks: Attack[] = [new Attack('Charge', 50, 100, 'Normal', 'Physic')]
+        public attacks: Attack[] = []
     ) {
         this.currentHealth = maxHealth;
     }

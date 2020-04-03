@@ -5,6 +5,7 @@ import { LoggerService } from '../service/logger.service';
 import { BattleService } from '../service/battle.service';
 import { Subscription } from 'rxjs';
 import { PokemonService } from '../service/pokemon.service';
+import { ActivatedRoute, Params, ActivatedRouteSnapshot } from '@angular/router';
 
 @Component({
   selector: 'app-battle',
@@ -14,6 +15,10 @@ import { PokemonService } from '../service/pokemon.service';
 export class BattleComponent implements OnInit {
   @Input() pokemon1: Pokemon;
   @Input() pokemon2: Pokemon;
+
+  pokemonName1: string;
+  pokemonName2: string;
+
   private subscriber: Subscription;
   onStart: boolean;
   onPause: boolean;
@@ -21,11 +26,24 @@ export class BattleComponent implements OnInit {
   constructor(
     public loggerService: LoggerService,
     public battleService: BattleService,
-    private pokemonService: PokemonService
+    private pokemonService: PokemonService,
+    private route: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
-    this.reset();
+
+    this.route.params.subscribe((params : Params): void => {
+      this.pokemonName1 = params.pokemon1;
+      console.log(params.pokemon1.name);
+      this.pokemonName2 = params.pokemon2;
+      console.log(params.pokemon2.name);
+      this.letsFight();
+    });
+  }
+
+  letsFight() : void {
+    this.pokemon1 = this.pokemonService.getPokemonByName(this.pokemonName1);
+    this.pokemon2 = this.pokemonService.getPokemonByName(this.pokemonName2);
   }
 
   fight(): void {
@@ -46,14 +64,9 @@ export class BattleComponent implements OnInit {
 
   reset(): void {
     this.loggerService.clear();
-    const charge: Attack = new Attack('Charge', 50, 100, 'Normal', 'Physic');
-    const trempette: Attack = new Attack('trempette', 0, 100, 'Normal', 'Physic');
-    const attacks: Array<Attack> = [charge, trempette];
+    this.pokemon1 = this.pokemonService.getPokemonByName(this.pokemonName1);
+    this.pokemon2 = this.pokemonService.getPokemonByName(this.pokemonName2);
 
-    // this.pokemon1 = new Pokemon('Pikachu', 50, 142, 117, 90, 156, './assets/img/25.png', '', attacks);
-    // this.pokemon2 = new Pokemon('Magicarpe', 50, 142, 117, 90, 156, './assets/img/129.png', '', attacks);
-    this.pokemon1 = this.pokemonService.getPokemonByName('pikachu');
-    this.pokemon2 = this.pokemonService.getPokemonByName('magikarp');
     this.onStart = false;
     this.onPause = false;
   }
