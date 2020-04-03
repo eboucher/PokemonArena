@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'
 import Pokemon from '../model/pokemon';
-import { PokemonApi } from '../model/pokemonApi'
+import { PokemonApi, PokemonUrl, Result } from '../model/pokemonApi'
 import Attack from '../model/attack';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,22 @@ export class PokemonService {
   constructor(
     private http: HttpClient
   ) { }
+
+  // Request to retrieve the first 151 pokemons
+  getPokemonList(): Observable<PokemonUrl[]> {
+    return this.http.get<Result>(`${PokemonService.API_URL}pokemon?limit=151`)
+      .pipe(map(result => {
+        return result.results;
+      }));
+  }
+
+  getPokemonByUrl(pokemonUrl: PokemonUrl): Pokemon {
+    let pokemon = new Pokemon(pokemonUrl.name);
+    this.http.get<PokemonApi>(pokemonUrl.url)
+      .pipe(map((rawPokemon: PokemonApi) => this.mapPokemon(rawPokemon, pokemon))).subscribe();
+
+    return pokemon;
+  }
 
   getPokemonByName(name: string): Pokemon {
     let pokemon = new Pokemon(`${name}`);
