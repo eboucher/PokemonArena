@@ -41,12 +41,12 @@ export class BattleService {
         this.loggerService.addPokemon1Log(order[0].attackTarget(order[0].attacks[0], order[1]));
 
         this.damages = order[1].takeDamages(order[0].attacks[0], order[0]);
-        this.loggerService.addDamageLog(order[0].name, this.damages);
+        this.loggerService.addDamageLog(order[1].name, this.damages);
 
         if (order[1].currentHealth <= 0) {
           order[1].currentHealth = 0;
           this.loggerService.addDeadLog(`${order[1].name} est KO !`);
-          order[1].image = 'assets/img/cross.png';
+          order[1].imageFront = 'assets/img/cross.png';
 
           this.loggerService.addNormalLog(`${order[0].name} gagne !`);
           observer.complete();
@@ -57,12 +57,12 @@ export class BattleService {
         this.loggerService.addPokemon2Log(order[1].attackTarget(order[1].attacks[0], order[0]));
 
         this.damages = order[0].takeDamages(order[1].attacks[0], order[1]);
-        this.loggerService.addDamageLog(order[1].name, this.damages);
+        this.loggerService.addDamageLog(order[0].name, this.damages);
 
         if (order[0].currentHealth <= 0) {
           order[0].currentHealth = 0;
           this.loggerService.addDeadLog(`${order[0].name} est KO !`);
-          order[0].image = 'assets/img/cross.png';
+          order[0].imageFront = 'assets/img/cross.png';
           
           this.loggerService.addNormalLog(`${order[1].name} gagne !`);
           observer.complete();

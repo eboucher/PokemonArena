@@ -8,22 +8,32 @@ import { BattleService } from '../service/battle.service';
 import { PokemonComponent } from '../pokemon/pokemon.component';
 import { LoggerService } from '../service/logger.service';
 import { Subscription } from 'rxjs';
+import { PokemonService } from '../service/pokemon.service';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('BattleComponent', () => {
   let component: BattleComponent;
   let fixture: ComponentFixture<BattleComponent>;
   let view: any;
   let battleService: BattleService;
+  let pokemonService: PokemonService;
+  let http: HttpClientTestingModule;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-      BattleComponent,
-      PokemonComponent,
-      AppComponent],
+        BattleComponent,
+        PokemonComponent,
+        AppComponent
+      ],
       providers: [
         BattleService,
-        LoggerService
+        LoggerService,
+        PokemonService
+      ],
+      imports: [
+        HttpClientTestingModule
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
@@ -36,6 +46,8 @@ describe('BattleComponent', () => {
     fixture = TestBed.createComponent(BattleComponent);
     view = fixture.nativeElement;
     component = fixture.componentInstance;
+    pokemonService = TestBed.inject(PokemonService);
+    http = TestBed.inject(HttpClientTestingModule);
     fixture.detectChanges();
   });
 

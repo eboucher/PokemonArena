@@ -13,9 +13,9 @@ describe('BattleService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
     let attack = [new Attack("Charge", 50, 100, "Normal", "Physic"), new Attack("Griffe", 40, 100, "Normal", "Physic")];
-    salameche = new Pokemon("Salameche", 50, 146, 114, 104, 128,'', attack);
-    pikachu = new Pokemon("Pikachu", 50, 142, 117, 90, 156, '', attack);
-    carapuce = new Pokemon("Carapuce", 50, 151, 110, 128, 104, '', attack);
+    salameche = new Pokemon("Salameche", 50, 146, 114, 104, 128,'', '', attack);
+    pikachu = new Pokemon("Pikachu", 50, 142, 117, 90, 156, '', '', attack);
+    carapuce = new Pokemon("Carapuce", 50, 151, 110, 128, 104, '','', attack);
 
     service = TestBed.inject(BattleService);
   });
